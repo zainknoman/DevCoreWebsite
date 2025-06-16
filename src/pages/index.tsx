@@ -132,7 +132,7 @@ const Index = () => {
               </li>
             </ul>
             <Button className="mt-6" asChild>
-              <NavLink to="/products">
+              <NavLink to="/productDetail">
                 Learn More <ArrowRight className="ml-2 h-4 w-4" />
               </NavLink>
             </Button>
@@ -175,8 +175,8 @@ const Index = () => {
               </li>
             </ul>
             <Button className="mt-6" asChild>
-              <NavLink to="/products">
-                Explore Features <ArrowRight className="ml-2 h-4 w-4" />
+              <NavLink to="/services">
+                Learn More <ArrowRight className="ml-2 h-4 w-4" />
               </NavLink>
             </Button>
           </div>
@@ -218,8 +218,8 @@ const Index = () => {
               </li>
             </ul>
             <Button className="mt-6" asChild>
-              <NavLink to="/products">
-                View Details <ArrowRight className="ml-2 h-4 w-4" />
+              <NavLink to="/services">
+                Learn More <ArrowRight className="ml-2 h-4 w-4" />
               </NavLink>
             </Button>
           </div>

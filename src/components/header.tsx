@@ -39,11 +39,6 @@ const Header = () => {
               </NavLink>
             ))}
           </nav>
-          <div className="hidden md:block">
-            <Button asChild>
-              <NavLink to="/contact">Get a Quote</NavLink>
-            </Button>
-          </div>
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
