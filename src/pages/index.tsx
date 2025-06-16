@@ -190,7 +190,6 @@ const Index = () => {
         </div>
       </motion.section>
 
-      {/* Featured Product Section 3: Secure Document Management System */}
       <motion.section
         ref={productThreeRef}
         variants={sectionVariants}
@@ -287,7 +286,6 @@ const Index = () => {
         </div>
       </motion.section>
 
-      {/* Testimonials Placeholder */}
       <motion.section
         ref={testimonialsRef}
         variants={sectionVariants}
