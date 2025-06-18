@@ -132,7 +132,8 @@ const Index = () => {
               </li>
             </ul>
             <Button className="mt-6" asChild>
-              <NavLink to="/productDetail">
+              {/* --- FIX APPLIED HERE: Redirects to the dynamic product detail page --- */}
+              <NavLink to="/products/queue-management-system">
                 Learn More <ArrowRight className="ml-2 h-4 w-4" />
               </NavLink>
             </Button>
@@ -155,23 +156,31 @@ const Index = () => {
         id="product-two"
         className="container mx-auto px-4 sm:px-6 lg:px-8"
       >
-        <div className="bg-card p-8 rounded-lg border border-border flex flex-col md:flex-row-reverse items-center gap-8"> {/* md:flex-row-reverse for alternating layout */}
+        <div className="bg-card p-8 rounded-lg border border-border flex flex-col md:flex-row-reverse items-center gap-8">
+          {" "}
+          {/* md:flex-row-reverse for alternating layout */}
           <div className="md:w-1/2">
             <h2 className="text-3xl font-bold text-foreground">
               Custom Web Development
             </h2>
             <p className="mt-4 text-muted-foreground">
-              We build high-performance, scalable, and secure web applications tailored to your specific business requirements. From dynamic single-page applications to complex enterprise platforms, we've got you covered.
+              We build high-performance, scalable, and secure web applications
+              tailored to your specific business requirements. From dynamic
+              single-page applications to complex enterprise platforms, we've
+              got you covered.
             </p>
             <ul className="mt-6 space-y-2 text-muted-foreground">
               <li className="flex items-center gap-2">
-                <ArrowRight className="text-primary h-5 w-5" /> Optimized for speed and performance
+                <ArrowRight className="text-primary h-5 w-5" /> Optimized for
+                speed and performance
               </li>
               <li className="flex items-center gap-2">
-                <ArrowRight className="text-primary h-5 w-5" /> Secure architecture with best practices
+                <ArrowRight className="text-primary h-5 w-5" /> Secure
+                architecture with best practices
               </li>
               <li className="flex items-center gap-2">
-                <ArrowRight className="text-primary h-5 w-5" /> Cross-platform & responsive design
+                <ArrowRight className="text-primary h-5 w-5" /> Cross-platform
+                & responsive design
               </li>
             </ul>
             <Button className="mt-6" asChild>
@@ -204,17 +213,23 @@ const Index = () => {
               Mobile App Development
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Our team creates intuitive and engaging native and cross-platform mobile apps for both iOS and Android. We focus on user experience to ensure your app is not only functional but also delightful to use.
+              Our team creates intuitive and engaging native and cross-platform
+              mobile apps for both iOS and Android. We focus on user experience
+              to ensure your app is not only functional but also delightful to
+              use.
             </p>
             <ul className="mt-6 space-y-2 text-muted-foreground">
               <li className="flex items-center gap-2">
-                <ArrowRight className="text-primary h-5 w-5" /> Native & cross-platform compatibility
+                <ArrowRight className="text-primary h-5 w-5" /> Native &
+                cross-platform compatibility
               </li>
               <li className="flex items-center gap-2">
-                <ArrowRight className="text-primary h-5 w-5" /> Focused on user experience (UX) and delight.
+                <ArrowRight className="text-primary h-5 w-5" /> Focused on user
+                experience (UX) and delight.
               </li>
               <li className="flex items-center gap-2">
-                <ArrowRight className="text-primary h-5 w-5" /> Delivering apps that work great and are enjoyable to use.
+                <ArrowRight className="text-primary h-5 w-5" /> Delivering apps
+                that work great and are enjoyable to use.
               </li>
             </ul>
             <Button className="mt-6" asChild>
@@ -241,7 +256,9 @@ const Index = () => {
         animate={servicesInView ? "visible" : "hidden"}
         className="container mx-auto px-4 sm:px-6 lg:px-8 text-center"
       >
-        <h2 className="text-3xl font-bold text-foreground">Our Core Services</h2>
+        <h2 className="text-3xl font-bold text-foreground">
+          Our Core Services
+        </h2>
         <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
           From concept to deployment, we provide comprehensive development
           services.
@@ -315,4 +332,4 @@ const Index = () => {
   );
 };
 
-export default Index
+export default Index;

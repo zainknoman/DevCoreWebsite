@@ -7,25 +7,20 @@ import {
   ShoppingCart,
   MessageCircle,
   CheckCircle,
-  // X, // No longer needed for the close button
 } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useState } from "react";
-
-// Import Shadcn UI Dialog and Button components
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  // DialogClose, // Not explicitly used for the custom button
   DialogFooter
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-// Enhanced services data (same as before)
 const services = [
   {
     id: "custom-web-development",
@@ -186,7 +181,7 @@ const Services = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-40">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div className="text-center">
         <motion.h1
           variants={headerVariants}
