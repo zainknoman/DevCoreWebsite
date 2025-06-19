@@ -2,11 +2,82 @@
 import { NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, BarChart, Code, Layers } from "lucide-react";
+import { ArrowRight, BarChart, Code, Layers, CheckCircle } from "lucide-react"; // Added CheckCircle for features
 import { motion, Variants, Transition } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { useState } from "react"; // Import useState
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription, // Keeping for potential future use, though not used in title block
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog"; // Import Dialog components
+
+// Define the service data directly in Index.tsx, or import from a shared file
+const coreServices = [
+  {
+    id: "custom-web-development",
+    icon: Code,
+    title: "Custom Web Development",
+    briefDescription:
+      "Bespoke websites built with the latest technologies to deliver performance and scalability.",
+    fullDescription:
+      "Our custom web development service focuses on creating bespoke digital experiences from the ground up. We leverage modern frameworks like React, Next.js, and Node.js to deliver high-performance, scalable, and secure web applications. Whether you need a complex enterprise platform, a dynamic single-page application, or a robust content management system, our team is equipped to bring your vision to life with precision and expertise.",
+    features: [
+      "Tailored solutions to meet unique business needs",
+      "Scalable architecture for future growth",
+      "Robust security implementation",
+      "Responsive design for all devices",
+    ],
+  },
+  {
+    id: "mobile-app-development",
+    icon: Layers,
+    title: "Mobile App Development",
+    briefDescription:
+      "Engaging and intuitive mobile applications for iOS and Android that your users will love.",
+    fullDescription:
+      "We specialize in developing intuitive and engaging mobile applications for both iOS and Android platforms. Our approach covers the entire app lifecycle, from concept and UI/UX design to development, testing, and deployment. We focus on delivering seamless user experiences, leveraging technologies like React Native or native Swift/Kotlin to build performant and feature-rich applications that delight your users.",
+    features: [
+      "Native iOS and Android development",
+      "Cross-platform solutions (React Native)",
+      "User-centric UI/UX design",
+      "App store deployment assistance",
+    ],
+  },
+  {
+    id: "ui-ux-consulting",
+    icon: BarChart,
+    title: "UI/UX & Consulting",
+    briefDescription:
+      "User-centric design and expert consulting to ensure your product is a success.",
+    fullDescription:
+      "Good design is good business. Our UI/UX design services are focused on creating interfaces that are not only aesthetically pleasing but also highly functional and intuitive. We conduct thorough user research, create wireframes and prototypes, and perform usability testing to ensure your product delivers an exceptional user experience, driving engagement and conversions. Our consulting helps align technology with your business goals.",
+    features: [
+      "Comprehensive user research and analysis",
+      "Wireframing and prototyping",
+      "Intuitive user interface (UI) design",
+      "Strategic technology roadmap development",
+    ],
+  },
+];
 
 const Index = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<typeof coreServices[0] | null>(null);
+
+  const openServiceModal = (service: typeof coreServices[0]) => {
+    setSelectedService(service);
+    setIsModalOpen(true);
+  };
+
+  const closeServiceModal = () => {
+    setIsModalOpen(false);
+    setSelectedService(null);
+  };
+
   // Define variants for staggered hero animation
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -132,7 +203,6 @@ const Index = () => {
               </li>
             </ul>
             <Button className="mt-6" asChild>
-              {/* --- FIX APPLIED HERE: Redirects to the dynamic product detail page --- */}
               <NavLink to="/products/queue-management-system">
                 Learn More <ArrowRight className="ml-2 h-4 w-4" />
               </NavLink>
@@ -264,42 +334,27 @@ const Index = () => {
           services.
         </p>
         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <Card className="text-left">
-            <CardHeader>
-              <Code className="h-10 w-10 text-primary mb-4" />
-              <CardTitle>Custom Web Development</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">
-                Bespoke websites built with the latest technologies to deliver
-                performance and scalability.
-              </p>
-            </CardContent>
-          </Card>
-          <Card className="text-left">
-            <CardHeader>
-              <Layers className="h-10 w-10 text-primary mb-4" />
-              <CardTitle>Mobile App Development</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">
-                Engaging and intuitive mobile applications for iOS and Android
-                that your users will love.
-              </p>
-            </CardContent>
-          </Card>
-          <Card className="text-left">
-            <CardHeader>
-              <BarChart className="h-10 w-10 text-primary mb-4" />
-              <CardTitle>UI/UX & Consulting</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">
-                User-centric design and expert consulting to ensure your product
-                is a success.
-              </p>
-            </CardContent>
-          </Card>
+          {coreServices.map((service) => (
+            <Card
+              key={service.id}
+              className="text-left cursor-pointer group flex flex-col h-full hover:border-primary transition-colors duration-200" // Added cursor-pointer, group, flexbox, and hover effects
+              onClick={() => openServiceModal(service)} 
+            >
+              <CardHeader>
+                <service.icon className="h-10 w-10 text-primary mb-4" />
+                <CardTitle className="group-hover:text-primary transition-colors duration-200">
+                  {service.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                {" "}
+                {/* flex-grow to push content down */}
+                <p className="text-muted-foreground">
+                  {service.briefDescription}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </motion.section>
 
@@ -328,6 +383,68 @@ const Index = () => {
           </Card>
         </div>
       </motion.section>
+
+      {/* Service Detail Modal - Added here */}
+      {selectedService && (
+        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+          <DialogContent
+            className="
+              sm:max-w-4xl
+              md:max-w-5xl
+              lg:max-w-6xl
+              p-8
+              rounded-2xl
+              border-2
+              border-primary/20
+              shadow-2xl
+              shadow-primary/10
+              gap-y-6
+              overflow-y-auto
+              max-h-[90vh]
+              flex flex-col
+            "
+          >
+            <DialogHeader className="flex flex-col items-center text-center space-y-3">
+              <DialogTitle className="text-4xl font-extrabold text-primary">
+                {selectedService.title}
+              </DialogTitle>
+            </DialogHeader>
+
+            <div className="flex-grow space-y-6 text-left">
+              <p className="text-muted-foreground leading-relaxed text-base md:text-lg mt-8">
+                {selectedService.briefDescription}
+              </p>
+              <p className="text-muted-foreground leading-relaxed text-base md:text-lg mt-8">
+                {selectedService.fullDescription}
+              </p>
+              {selectedService.features && selectedService.features.length > 0 && (
+                <div>
+                  <h3 className="text-2xl font-bold mt-6 mb-4 text-foreground">
+                    Key Aspects
+                  </h3>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6">
+                    {selectedService.features.map((feature, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-3 text-muted-foreground"
+                      >
+                        <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                        <span className="text-base">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            <DialogFooter className="flex items-center justify-center pt-6 mt-auto">
+              <Button onClick={closeServiceModal} className="w-full sm:w-auto px-8 py-3 text-lg">
+                Close
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 };

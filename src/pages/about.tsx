@@ -75,7 +75,7 @@ const About = () => {
 
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-48 pb-48">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <motion.div
         variants={introVariants}
         initial="hidden"

@@ -20,6 +20,14 @@ import {
   DialogFooter
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"; 
+import Autoplay from "embla-carousel-autoplay"; 
 
 const services = [
   {
@@ -106,6 +114,34 @@ const services = [
       "Feasibility studies and technical due diligence",
       "Innovation and emerging tech advisement",
     ],
+  },
+];
+
+
+const productProcessSteps = [
+  {
+    step: "1. Discovery",
+    description: "Understanding your needs and defining product scope.",
+  },
+  {
+    step: "2. Design",
+    description: "Crafting intuitive UI/UX for optimal user experience.",
+  },
+  {
+    step: "3. Development",
+    description: "Building robust and scalable product features.",
+  },
+  {
+    step: "4. Deployment",
+    description: "Launching and providing ongoing support for your product.",
+  },
+  {
+    step: "5. Feedback & Iteration", 
+    description: "Continuously improving based on user feedback and performance.",
+  },
+  {
+    step: "6. Scalability", 
+    description: "Ensuring the product can grow with your business demands.",
   },
 ];
 
@@ -236,42 +272,41 @@ const Services = () => {
         animate={processInView ? "visible" : "hidden"}
         className="mt-24 bg-card p-8 rounded-lg border border-border"
       >
-        <h2 className="text-3xl font-bold text-center">
-          Our Development Process
+        <h2 className="text-3xl font-bold text-center mb-12">
+          Our Product Delivery Process
         </h2>
-        <motion.div
-          variants={processStepContainerVariants}
-          initial="hidden"
-          animate={processInView ? "visible" : "hidden"}
-          className="mt-8 grid md:grid-cols-4 gap-8 text-center"
+        {/* Carousel implementation */}
+        <Carousel
+          plugins={[
+            Autoplay({
+              delay: 3000, // Auto-play every 3 seconds
+              stopOnInteraction: true, // Stop autoplay on user interaction
+              stopOnMouseEnter: true, // Stop autoplay when mouse enters
+            }),
+          ]}
+          opts={{
+            align: "start",
+            loop: true, // Loop the carousel
+          }}
+          className="w-full max-w-5xl mx-auto" // Adjust max-width as needed
         >
-          <motion.div variants={processStepItemVariants}>
-            <h3 className="text-xl font-semibold text-primary">1. Discover</h3>
-            <p className="text-muted-foreground mt-2">
-              We start by understanding your vision, goals, and requirements.
-            </p>
-          </motion.div>
-          <motion.div variants={processStepItemVariants}>
-            <h3 className="text-xl font-semibold text-primary">2. Design</h3>
-            <p className="text-muted-foreground mt-2">
-              We create wireframes and mockups to visualize the user experience.
-            </p>
-          </motion.div>
-          <motion.div variants={processStepItemVariants}>
-            <h3 className="text-xl font-semibold text-primary">3. Develop</h3>
-            <p className="text-muted-foreground mt-2">
-              Our expert team writes clean, efficient code to build your
-              product.
-            </p>
-          </motion.div>
-          <motion.div variants={processStepItemVariants}>
-            <h3 className="text-xl font-semibold text-primary">4. Deploy</h3>
-            <p className="text-muted-foreground mt-2">
-              We handle the launch and provide ongoing support to ensure
-              success.
-            </p>
-          </motion.div>
-        </motion.div>
+          <CarouselContent className="-ml-4"> {/* Added -ml-4 for correct spacing */}
+            {productProcessSteps.map((item, index) => (
+              <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3"> {/* Adjust basis for number of visible items */}
+                <div className="p-1">
+                  <Card className="h-full">
+                    <CardContent className="flex flex-col items-center justify-center p-6 text-center">
+                      <h3 className="text-xl font-semibold text-primary">{item.step}</h3>
+                      <p className="text-muted-foreground mt-2">{item.description}</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
       </motion.div>
 
       {/* Service Detail Modal */}

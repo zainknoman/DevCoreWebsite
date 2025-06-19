@@ -46,34 +46,6 @@ const products = [
   },
 ];
 
-// Define your process steps in a structured array
-const productProcessSteps = [
-  {
-    step: "1. Discovery",
-    description: "Understanding your needs and defining product scope.",
-  },
-  {
-    step: "2. Design",
-    description: "Crafting intuitive UI/UX for optimal user experience.",
-  },
-  {
-    step: "3. Development",
-    description: "Building robust and scalable product features.",
-  },
-  {
-    step: "4. Deployment",
-    description: "Launching and providing ongoing support for your product.",
-  },
-  {
-    step: "5. Feedback & Iteration", // Added an extra step for more slider content
-    description: "Continuously improving based on user feedback and performance.",
-  },
-  {
-    step: "6. Scalability", // Added another step
-    description: "Ensuring the product can grow with your business demands.",
-  },
-];
-
 const Products = () => {
   const headerVariants: Variants = {
     hidden: { opacity: 0, y: -20 },
@@ -116,8 +88,6 @@ const Products = () => {
       },
     },
   };
-
-  // Removed processStepContainerVariants and processStepItemVariants as Carousel handles layout
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -181,51 +151,6 @@ const Products = () => {
             </NavLink>
           </motion.div>
         ))}
-      </motion.div>
-
-      {/* Our Product Delivery Process - Now a Carousel */}
-      <motion.div
-        ref={processRef}
-        variants={processSectionVariants}
-        initial="hidden"
-        animate={processInView ? "visible" : "hidden"}
-        className="mt-24 bg-card p-8 rounded-lg border border-border"
-      >
-        <h2 className="text-3xl font-bold text-center mb-12">
-          Our Product Delivery Process
-        </h2>
-        {/* Carousel implementation */}
-        <Carousel
-          plugins={[
-            Autoplay({
-              delay: 3000, // Auto-play every 3 seconds
-              stopOnInteraction: true, // Stop autoplay on user interaction
-              stopOnMouseEnter: true, // Stop autoplay when mouse enters
-            }),
-          ]}
-          opts={{
-            align: "start",
-            loop: true, // Loop the carousel
-          }}
-          className="w-full max-w-5xl mx-auto" // Adjust max-width as needed
-        >
-          <CarouselContent className="-ml-4"> {/* Added -ml-4 for correct spacing */}
-            {productProcessSteps.map((item, index) => (
-              <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3"> {/* Adjust basis for number of visible items */}
-                <div className="p-1">
-                  <Card className="h-full">
-                    <CardContent className="flex flex-col items-center justify-center p-6 text-center">
-                      <h3 className="text-xl font-semibold text-primary">{item.step}</h3>
-                      <p className="text-muted-foreground mt-2">{item.description}</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
       </motion.div>
     </div>
   );
